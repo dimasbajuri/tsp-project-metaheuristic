@@ -1,0 +1,49 @@
+/* Palet "lembar kerja kartografi": kertas hangat + tinta, tiga warna semantik.
+   vermilion = perubahan/aksi · teal = solusi terbaik · ochre = tabu/ditolak */
+:root {
+  --paper: #f0eadb;
+  --paper-2: #e6dec9;
+  --ink: #1b1a17;
+  --ink-2: #4d483e;
+  --ink-3: #7a7464;
+  --hair: rgba(27, 26, 23, 0.2);
+  --vermilion: #c93a17;
+  --teal: #0b655f;
+  --ochre: #9c6200;
+  --grain: 0.08;
+
+  --serif: "Fraunces Variable", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #15171b;
+    --paper-2: #1f2228;
+    --ink: #ece6d6;
+    --ink-2: #b9b2a0;
+    --ink-3: #8a8474;
+    --hair: rgba(236, 230, 214, 0.18);
+    --vermilion: #ff7350;
+    --teal: #46d2c4;
+    --ochre: #e6a93c;
+    --grain: 0;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper: #15171b;
+  --paper-2: #1f2228;
+  --ink: #ece6d6;
+  --ink-2: #b9b2a0;
+  --ink-3: #8a8474;
+  --hair: rgba(236, 230, 214, 0.18);
+  --vermilion: #ff7350;
+  --teal: #46d2c4;
+  --ochre: #e6a93c;
+  --grain: 0;
+  color-scheme: dark;
+}

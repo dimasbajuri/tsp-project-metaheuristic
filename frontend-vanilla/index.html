@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simulasi Metaheuristik TSP</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Simulasi Metaheuristik · TSP</h1>
+    <p>Input data, pilih metode, lalu putar ulang proses algoritmanya langkah demi langkah.</p>
+  </header>
+
+  <main class="layout">
+    <!-- ============ PANEL KIRI: input & metode ============ -->
+    <div class="side">
+      <section class="card" aria-labelledby="h-data">
+        <h2 id="h-data"><span class="step">1</span> System entry (input data)</h2>
+
+        <div class="tabs" role="tablist" aria-label="Sumber data">
+          <button role="tab" id="tab-file" aria-controls="pane-file" aria-selected="true">Excel / CSV</button>
+          <button role="tab" id="tab-text" aria-controls="pane-text" aria-selected="false">Tempel teks</button>
+          <button role="tab" id="tab-sample" aria-controls="pane-sample" aria-selected="false">Contoh / acak</button>
+        </div>
+
+        <div class="pane" id="pane-file" role="tabpanel" aria-labelledby="tab-file">
+          <label class="drop" id="drop">
+            <input type="file" id="file" accept=".xlsx,.xls,.csv,.txt">
+            <strong>Pilih atau seret file</strong><br>
+            <small>.xlsx / .xls / .csv — kolom: nama, x, y</small>
+          </label>
+          <button class="link" id="btn-template" type="button">Unduh template CSV</button>
+        </div>
+
+        <div class="pane" id="pane-text" role="tabpanel" aria-labelledby="tab-text" hidden>
+          <label class="field"><span>Satu titik per baris: <code>nama,x,y</code> atau <code>x,y</code></span>
+            <textarea id="paste" spellcheck="false" placeholder="Jakarta,0,0&#10;Bandung,2,3&#10;Yogyakarta,5,1"></textarea>
+          </label>
+          <button type="button" id="btn-paste">Muat data</button>
+        </div>
+
+        <div class="pane" id="pane-sample" role="tabpanel" aria-labelledby="tab-sample" hidden>
+          <button type="button" id="btn-sample">Contoh dari notebook (5 kota)</button>
+          <div class="row" style="margin-top:10px">
+            <label class="field"><span>Jumlah titik acak</span><input type="number" id="rand-n" value="20" min="4" max="200"></label>
+            <label class="field"><span>Seed</span><input type="number" id="rand-seed" value="1"></label>
+            <button type="button" id="btn-random" style="margin-bottom:8px">Acak</button>
+          </div>
+        </div>
+
+        <p class="msg" id="data-msg" role="status"></p>
+
+        <div class="pts-wrap">
+          <table class="pts" aria-label="Daftar titik">
+            <thead><tr><th>#</th><th>Nama</th><th>x</th><th>y</th><th></th></tr></thead>
+            <tbody id="pts-body"></tbody>
+          </table>
+        </div>
+        <div class="row fit" style="margin-top:8px; align-items:center">
+          <label class="check"><input type="checkbox" id="click-add"> Klik peta untuk menambah titik</label>
+          <button type="button" id="btn-clear">Kosongkan</button>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="h-method">
+        <h2 id="h-method"><span class="step">2</span> Metode yang dipakai</h2>
+
+        <label class="field"><span>Constructive heuristic (solusi awal)</span>
+          <select id="m-init">
+            <option value="nearest_neighbor">Nearest Neighbor (NN)</option>
+            <option value="nearest_insertion">Nearest Insertion (NI)</option>
+            <option value="farthest_neighbor">Farthest Neighbor (FN)</option>
+            <option value="arbitrary">Arbitrary (acak)</option>
+          </select>
+        </label>
+        <label class="field"><span>Node awal</span><select id="m-start"></select></label>
+        <label class="field"><span>Improvement heuristic / metaheuristic</span>
+          <select id="m-improve">
+            <option value="none">Tanpa improvement</option>
+            <option value="two_opt">2-opt (local search)</option>
+            <option value="tabu_search" selected>Tabu Search</option>
+            <option value="simulated_annealing">Simulated Annealing</option>
+          </select>
+        </label>
+        <p class="hint" id="m-hint"></p>
+      </section>
+
+      <section class="card" aria-labelledby="h-param">
+        <h2 id="h-param"><span class="step">3</span> Parameter</h2>
+
+        <div class="group" data-for="two_opt" hidden>
+          <label class="field"><span>Maks. pass</span><input type="number" id="p-passes" value="100" min="1"></label>
+        </div>
+        <div class="group" data-for="tabu_search">
+          <label class="field"><span>Maks. iterasi</span><input type="number" id="p-iter" value="100" min="1" max="2000"></label>
+          <label class="field"><span>Tabu tenure</span><input type="number" id="p-tenure" value="10" min="0"></label>
+        </div>
+        <div class="group" data-for="simulated_annealing" hidden>
+          <div class="row">
+            <label class="field"><span>Suhu awal</span><input type="number" id="p-t0" value="1000" min="0.001" step="any"></label>
+            <label class="field"><span>Suhu min</span><input type="number" id="p-tmin" value="0.001" min="0.0000001" step="any"></label>
+          </div>
+          <div class="row">
+            <label class="field"><span>Cooling rate (0–1)</span><input type="number" id="p-cool" value="0.995" min="0.5" max="0.99999" step="any"></label>
+            <label class="field"><span>Iterasi / suhu</span><input type="number" id="p-ips" value="100" min="1" max="5000"></label>
+          </div>
+          <label class="field"><span>Level suhu awal yang ditampilkan per iterasi (0–5)</span><input type="number" id="p-detail" value="1" min="0" max="5"></label>
+        </div>
+        <label class="field"><span>Seed acak (Arbitrary &amp; SA)</span><input type="number" id="p-seed" value="42"></label>
+
+        <button class="primary" id="btn-run" type="button">Jalankan simulasi</button>
+        <p class="msg" id="run-msg" role="alert"></p>
+      </section>
+    </div>
+
+    <!-- ============ PANEL KANAN: visualisasi ============ -->
+    <div class="stage">
+      <section class="card map-card" aria-label="Visualisasi tour">
+        <div class="map-head">
+          <span class="badge" id="phase">Belum dijalankan</span>
+          <div class="legend" aria-hidden="true">
+            <span><i style="border-color:var(--route)"></i>Tour saat ini</span>
+            <span><i style="border-color:var(--good);border-top-style:dashed"></i>Terbaik</span>
+            <span><i style="border-color:var(--bad);border-top-style:dashed"></i>Edge dihapus</span>
+            <span><i style="border-color:var(--good)"></i>Edge baru</span>
+            <span><i style="border-color:var(--warn);border-top-style:dotted"></i>Ditolak</span>
+          </div>
+          <label class="check" style="margin:0"><input type="checkbox" id="show-best" checked> Tampilkan tour terbaik</label>
+        </div>
+        <canvas id="map" aria-label="Peta titik dan tour"></canvas>
+        <div class="controls">
+          <div class="btns">
+            <button type="button" id="b-first" title="Ke awal" aria-label="Ke awal"><svg viewBox="0 0 16 16"><path d="M3 2h2v12H3zM14 2v12L6 8z"/></svg></button>
+            <button type="button" id="b-prev" title="Langkah mundur (←)" aria-label="Langkah mundur"><svg viewBox="0 0 16 16"><path d="M12 2v12L4 8z"/></svg></button>
+            <button type="button" id="b-play" title="Putar / jeda (spasi)" aria-label="Putar"><svg viewBox="0 0 16 16"><path id="ic-play" d="M4 2v12l10-6z"/></svg></button>
+            <button type="button" id="b-next" title="Langkah maju (→)" aria-label="Langkah maju"><svg viewBox="0 0 16 16"><path d="M4 2v12l8-6z"/></svg></button>
+            <button type="button" id="b-last" title="Ke akhir" aria-label="Ke akhir"><svg viewBox="0 0 16 16"><path d="M11 2h2v12h-2zM2 2l8 6-8 6z"/></svg></button>
+          </div>
+          <input type="range" id="scrub" min="0" max="0" value="0" aria-label="Posisi langkah">
+          <span class="counter" id="counter">0 / 0</span>
+          <label class="check" style="margin:0">Kecepatan
+            <select id="speed" aria-label="Kecepatan">
+              <option value="1">1/dtk</option>
+              <option value="3">3/dtk</option>
+              <option value="8" selected>8/dtk</option>
+              <option value="20">20/dtk</option>
+              <option value="60">60/dtk</option>
+              <option value="200">200/dtk</option>
+            </select>
+          </label>
+          <label class="check" style="margin:0"><input type="checkbox" id="show-labels" checked> Label</label>
+        </div>
+      </section>
+
+      <div class="two-col">
+        <section class="card info" aria-live="polite" aria-label="Penjelasan langkah">
+          <h3 id="f-title">Siap</h3>
+          <p id="f-desc">Muat data, pilih metode, lalu tekan “Jalankan simulasi”.</p>
+          <dl class="metrics" id="f-metrics"></dl>
+          <div id="f-tabu" hidden>
+            <div class="chips-title">Tabu list (move yang dilarang)</div>
+            <div class="chips" id="f-tabu-chips"></div>
+          </div>
+        </section>
+        <section class="card" aria-label="Grafik cost">
+          <h2>Cost per langkah <small style="font-weight:400;color:var(--muted)">(biru: sekarang · hijau: terbaik)</small></h2>
+          <canvas id="chart" aria-label="Grafik konvergensi cost"></canvas>
+        </section>
+      </div>
+
+      <div class="two-col">
+        <section class="card" aria-label="Log langkah">
+          <h2>Log langkah</h2>
+          <ol class="log" id="log"></ol>
+        </section>
+        <section class="card results" aria-label="Hasil">
+          <h2>Hasil</h2>
+          <div id="result"><p class="hint">Belum ada hasil.</p></div>
+        </section>
+      </div>
+
+      <section class="card" aria-label="Perbandingan run">
+        <h2>Perbandingan run</h2>
+        <div class="scroll-x">
+          <table class="runs">
+            <thead><tr><th>#</th><th>Constructive</th><th>Improvement</th><th class="num">Titik</th><th class="num">Cost awal</th><th class="num">Cost akhir</th><th class="num">Perbaikan</th><th class="num">Waktu</th></tr></thead>
+            <tbody id="runs-body"><tr><td colspan="8" class="hint">Jalankan beberapa metode untuk membandingkan.</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"
+          integrity="sha384-vtjasyidUo0kW94K5MXDXntzOJpQgBKXmE7e2Ga4LG0skTTLeBi97eFAXsqewJjw"
+          crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+  <script src="js/core.js" defer></script>
+  <script src="js/constructive.js" defer></script>
+  <script src="js/improvement.js" defer></script>
+  <script src="js/data.js" defer></script>
+  <script src="js/render.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>
