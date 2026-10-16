@@ -213,6 +213,7 @@ Arsitektur sistem dibagi menjadi tiga lapisan utama:
    - Menyimpan setiap langkah algoritma dalam frame simulasi.
 3. **Lapisan Output Hasil**
    - Menampilkan rute optimal, biaya awal dan akhir, persentase perbaikan, waktu komputasi, grafik perkembangan biaya, pseudocode, dan tabel perbandingan hasil eksekusi.
+ 
 Alur utama sistem:
  
 ```mermaid
