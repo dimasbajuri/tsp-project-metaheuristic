@@ -179,14 +179,13 @@ Penelitian ini menggunakan pendekatan eksperimental dengan tahapan:
 ```mermaid
 flowchart TD
     A([Mulai]) --> B[Studi Literatur]
-    B --> C[Analisis Kebutuhan]
-    C --> D[Perancangan Sistem]
-    D --> E[Implementasi Algoritma & Antarmuka]
-    E --> F[Pengujian Sistem]
-    F --> G[Eksperimen dengan Berbagai Dataset]
-    G --> H[Analisis Hasil]
-    H --> I[Kesimpulan & Saran]
-    I --> J([Selesai])
+    B --> C[Perancangan Sistem]
+    C --> D[Implementasi Algoritma & Antarmuka]
+    D --> E[Pengujian Sistem]
+    E --> F[Eksperimen dengan Berbagai Dataset]
+    F --> G[Analisis Hasil]
+    G --> H[Kesimpulan & Saran]
+    H --> I([Selesai])
 ```
  
 ### 3.2 Teknologi Implementasi
