@@ -448,7 +448,7 @@ Eksperimen dibagi menjadi dua bagian, yaitu pengujian kombinasi metode konstruks
  
 Ukuran dataset, metode konstruksi, dan parameter eksperimen mengikuti [Bab 3.7](#37-rancangan-eksperimen-dan-metrik-evaluasi). Dataset yang sama digunakan untuk membandingkan setiap kombinasi, dengan keluaran berupa biaya akhir, persentase perbaikan, dan waktu komputasi.
  
-Setiap solusi awal dari keempat metode konstruksi dilanjutkan dengan salah satu dari empat pilihan: tanpa perbaikan, 2-opt, Tabu Search, atau Simulated Annealing. Dengan demikian terdapat 16 kombinasi metode. Untuk ukuran 25, 50, dan 100 titik digunakan masing-masing 5 dataset acak, ditambah dataset 5 kota bawaan, sehingga total terdapat 256 pengujian (16 × (3 × 5 + 1)). Hasil per dataset dapat dilihat pada [Lampiran](#lampiran).
+Setiap solusi awal dari keempat metode konstruksi dilanjutkan dengan salah satu dari empat pilihan: tanpa perbaikan, 2-opt, Tabu Search, atau Simulated Annealing. Dengan demikian terdapat 16 kombinasi metode. Untuk ukuran 25, 50, dan 100 titik digunakan masing-masing 5 dataset acak, ditambah dataset 5 kota bawaan, sehingga total terdapat 256 pengujian (16 × (3 × 5 + 1)).
  
 #### 4.1.2 Pengujian Perubahan Parameter Metaheuristik
  
@@ -629,8 +629,14 @@ Secara keseluruhan, sistem berbasis web dapat menjalankan proses optimasi rute u
 4. Menggunakan 3-opt sebagai dasar dari metode metaheuristik pada Tabu Search dan Simulated Annealing.
 ---
  
-## Daftar Pustaka
- 
-> 🚧 *Belum diisi.* Rujukan yang disebut pada [Bab 2.9](#29-penelitian-terdahulu): Johnson & McGeoch (1997), Glover (1989), Kirkpatrick et al. (1983), Croes (1958).
+ ## Daftar Pustaka
+
+Croes, G. A. (1958). A method for solving traveling-salesman problems. *Operations Research, 6*(6). 
+
+Glover, F. (1989). Tabu search—Part I. *ORSA Journal on Computing, 1*(3).
+
+Johnson, D. S., & McGeoch, L. A. (1997). The traveling salesman problem: A case study in local optimization. Dalam E. H. L. Aarts & J. K. Lenstra (Ed.). John Wiley & Sons.
+
+Kirkpatrick, S., Gelatt, C. D., & Vecchi, M. P. (1983). Optimization by simulated annealing. *Science, 220*(4598).
  
 ---
