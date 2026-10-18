@@ -110,7 +110,7 @@ Arbitrary Solution membentuk solusi awal dengan mengacak urutan seluruh titik me
  
 ### 2.5 Metode Local Search
  
-Metode perbaikan lokal bekerja dengan melakukan modifikasi terhadap solusi awal secara iteratif untuk mencari solusi yang lebih baik di lingkungannya. Metode ini berhenti ketika tidak ada lagi perbaikan yang dapat dilakukan atau ketika batas iterasi tercapai.
+Metode perbaikan lokal bekerja dengan melakukan modifikasi terhadap solusi awal secara iteratif untuk mencari solusi yang lebih baik di lingkungannya (Talbi, 2009). Metode ini berhenti ketika tidak ada lagi perbaikan yang dapat dilakukan atau ketika batas iterasi tercapai.
  
 #### 2.5.1 2-opt
  
@@ -124,7 +124,7 @@ Proses diulang hingga tidak ada lagi perbaikan yang dapat dilakukan atau jumlah 
  
 ### 2.6 Metaheuristik
  
-Metaheuristik adalah metode optimasi tingkat tinggi yang dirancang untuk menjelajahi ruang solusi secara lebih luas, termasuk kemampuan untuk keluar dari optimum lokal. Berbeda dengan metode perbaikan lokal yang hanya menerima perbaikan, metaheuristik dapat menerima solusi yang lebih buruk dengan aturan tertentu.
+Metaheuristik adalah metode optimasi tingkat tinggi yang dirancang untuk menjelajahi ruang solusi secara lebih luas, termasuk kemampuan untuk keluar dari optimum lokal (Talbi, 2009). Berbeda dengan metode perbaikan lokal yang hanya menerima perbaikan, metaheuristik dapat menerima solusi yang lebih buruk dengan aturan tertentu.
  
 #### 2.6.1 Tabu Search
  
@@ -638,5 +638,6 @@ Glover, F. (1989). Tabu search—Part I. *ORSA Journal on Computing, 1*(3).
 Johnson, D. S., & McGeoch, L. A. (1997). The traveling salesman problem: A case study in local optimization. Dalam E. H. L. Aarts & J. K. Lenstra (Ed.). John Wiley & Sons.
 
 Kirkpatrick, S., Gelatt, C. D., & Vecchi, M. P. (1983). Optimization by simulated annealing. *Science, 220*(4598).
- 
+
+Talbi, E.-G. (2009). *Metaheuristics: From design to implementation*. John Wiley & Sons.
 ---
