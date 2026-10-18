@@ -233,30 +233,7 @@ Pilih *Arbitrary* + *2-opt*. Tour awal acak berantakan; saksikan garis yang bers
 **D. Memahami keputusan terima/tolak Simulated Annealing**
 Pilih *SA* dengan *Level detail = 2*. Pada level awal, tiap percobaan tampil satu per satu beserta Δ, peluang, dan angka acaknya. Lalu perhatikan grafik: cost sekarang berfluktuasi tinggi saat suhu tinggi, lalu mengerucut saat suhu turun.
 
-## 9. Tanya jawab (FAQ)
-
-**Kenapa cost pada Tabu Search kadang naik?**
-Itu disengaja. Tabu Search memilih neighbor terbaik yang tidak tabu *walau lebih buruk dari tour sekarang*, supaya bisa keluar dari optimum lokal. Yang dijaga adalah garis **cost terbaik**, yang tidak pernah naik.
-
-**Kenapa hasil Simulated Annealing berbeda dengan notebook Python?**
-Logika algoritmanya sama, tetapi generator bilangan acak di web dan di notebook (NumPy) berbeda, jadi urutan move acaknya tidak identik. Hasil yang dihasilkan web tetap konsisten untuk seed yang sama.
-
-**Kenapa "Perbaikan" 0%?**
-Solusi awalnya sudah berupa optimum lokal untuk neighborhood 2-opt, atau jumlah titiknya sangat sedikit. Coba constructive yang lebih buruk (*Farthest Neighbor* atau *Arbitrary*) untuk melihat efek improvement.
-
-**Kenapa Tabu Search berhenti sebelum iterasi maksimum?**
-Hanya jika semua neighbor berstatus tabu dan tidak memenuhi aspirasi, atau titik terlalu sedikit untuk 2-opt. Langkah terakhir akan menjelaskan penyebabnya.
-
-**Apakah hasilnya dijamin optimal?**
-Tidak. Constructive heuristic dan metaheuristik adalah metode pendekatan. Untuk data sangat kecil (misalnya 5 kota) sering kebetulan optimal, tetapi untuk data besar tidak ada jaminan.
-
-**Kenapa simulasi mereset saat saya mengubah data?**
-Karena rekaman langkahnya dibuat dari data lama dan sudah tidak sesuai. Jalankan simulasi lagi setelah selesai mengedit.
-
-**Hasil run hilang saat halaman di-refresh?**
-Ya. Tabel perbandingan hanya hidup selama halaman terbuka. Salin rute akhir atau catat tabelnya sebelum menutup halaman.
-
-## 10. Batasan
+## 9. Batasan
 
 | Hal | Batas |
 |-----|-------|
@@ -268,7 +245,7 @@ Ya. Tabel perbandingan hanya hidup selama halaman terbuka. Salin rute akhir atau
 | Jenis jarak | Euclidean 2 dimensi pada koordinat `x`, `y` (bukan jarak jalan sebenarnya) |
 | Penyimpanan | Tidak ada; data, run, dan hasil hanya ada selama halaman terbuka (hanya pilihan tema yang diingat browser) |
 
-## 11. Glosarium
+## 10. Glosarium
 
 | Istilah | Arti |
 |---------|------|
