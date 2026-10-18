@@ -640,4 +640,5 @@ Johnson, D. S., & McGeoch, L. A. (1997). The traveling salesman problem: A case 
 Kirkpatrick, S., Gelatt, C. D., & Vecchi, M. P. (1983). Optimization by simulated annealing. *Science, 220*(4598).
 
 Talbi, E.-G. (2009). *Metaheuristics: From design to implementation*. John Wiley & Sons.
+
 ---
